@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,17 +28,13 @@ public class Controller {
     RestTemplate restTemplate;
 
     @Autowired
-    OAuth2AuthorizedClientRepository repository;
+    OAuth2AuthorizedClientService authorizedClientService;
 
     @GetMapping("/info")
-    public Map<String, String> userInfo(Authentication authentication) {
+    public Map<String, String> userInfo(OAuth2AuthenticationToken token) {
         Map<String, String> map = new HashMap<>();
         log.info("checking auth");
-        if (authentication == null) {
-            map.put("name","guest");
-        } else {
-            map.put("name", authentication.getName());
-        }
+        map.put("name", token.getPrincipal().getName());
         return map;
     }
 
@@ -53,7 +50,7 @@ public class Controller {
 
     @GetMapping("/resources")
     public String resources(HttpServletRequest request, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        OAuth2AuthorizedClient client = repository.loadAuthorizedClient("client", oAuth2AuthenticationToken, request);
+        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId(), oAuth2AuthenticationToken.getPrincipal().getName());
         String tokenValue = client.getAccessToken().getTokenValue();
         log.info("looking for resources");
         HttpHeaders headers = new HttpHeaders();
