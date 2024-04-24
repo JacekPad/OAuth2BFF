@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="authorization" />
+        <module name="bff" />
+        <module name="gateway" />
+        <module name="resourceServer" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="authorization" target="17" />
+      <module name="bff" target="17" />
+      <module name="gateway" target="17" />
+      <module name="resourceServer" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="authorization" options="-parameters" />
+      <module name="bff" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="resourceServer" options="-parameters" />
+    </option>
+  </component>
+</project>

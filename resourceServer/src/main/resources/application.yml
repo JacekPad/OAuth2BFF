@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ResourceServer
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8080
+  datasource:
+    url: jdbc:h2:mem:resource
+    driverClassName: org.h2.Driver
+    username: sa
+    password: pass
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+server:
+  port: 8090

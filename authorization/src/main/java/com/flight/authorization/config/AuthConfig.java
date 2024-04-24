@@ -45,8 +45,6 @@ import java.util.UUID;
 @EnableWebSecurity
 public class AuthConfig {
 
-//    TODO change values to variables
-
     @Bean
     @Order(1)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -130,7 +128,7 @@ public class AuthConfig {
         InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
         UserDetails user1 = User.withUsername("user")
                 .password("12345")
-                .roles("user")
+                .roles("ADMIN","USER")
                 .build();
         inMemoryUserDetailsManager.createUser(user1);
         return inMemoryUserDetailsManager;

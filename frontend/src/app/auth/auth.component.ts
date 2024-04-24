@@ -22,7 +22,7 @@ export class AuthComponent {
   }
 
   public resource() {
-    this.http.get<string>('/bff/api/resources').subscribe(ans => {
+    this.http.get<string>('/bff/resources').subscribe(ans => {
       this.answer = ans;
     })
   }
