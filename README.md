@@ -17,5 +17,7 @@ Springboot application holding protected resources, allowing only authoried user
 ```cd .\frontend\``` and ```npm install``` and then <br> ```npm start```
 #### Accessing endpoints
 Run authorization server, then all other backend applications and access the angular frontend with <br>
-``` http://localhost:9050/angular/ ``` <br>
+``` http://localhost:9050/angular/ ``` <br>. 
+#### Login-in
+To login click ```LOGIN``` button and type ```user:12345``` when asked for credentials. <br> To access protected resources click ```Get resources``` button.
 
