@@ -49,15 +49,14 @@ public class Controller {
     }
 
     @GetMapping("/resources")
-    public String resources(HttpServletRequest request, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+    public Map<String, String> resources(HttpServletRequest request, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId(), oAuth2AuthenticationToken.getPrincipal().getName());
         String tokenValue = client.getAccessToken().getTokenValue();
         log.info("looking for resources");
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(tokenValue);
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:8090/resources", HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> exchange = restTemplate.getForEntity("http://localhost:8090/resources", String.class);
         log.info("response: {}", exchange);
-        return exchange.getBody();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("name", exchange.getBody());
+        return map;
     }
 }

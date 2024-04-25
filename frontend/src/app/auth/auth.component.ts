@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
-interface User {
+interface Resp {
   name: string
 }
 
@@ -12,8 +12,8 @@ interface User {
   styleUrl: './auth.component.css'
 })
 export class AuthComponent {
-  user?: User = undefined;
-  answer: string = 'none'
+  user?: Resp = undefined;
+  answer?: Resp = undefined;
 
   constructor(private http: HttpClient) {}
 
@@ -22,13 +22,13 @@ export class AuthComponent {
   }
 
   public resource() {
-    this.http.get<string>('/bff/resources').subscribe(ans => {
+    this.http.get<Resp>('/bff/resources').subscribe(ans => {
       this.answer = ans;
     })
   }
 
   public getUser() {
-    this.http.get<User>('/bff/info').subscribe(ans => {
+    this.http.get<Resp>('/bff/info').subscribe(ans => {
       this.user = ans;
     })
   }
