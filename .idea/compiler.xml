@@ -9,8 +9,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="authorization" />
         <module name="bff" />
-        <module name="gateway" />
         <module name="resourceServer" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
