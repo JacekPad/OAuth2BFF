@@ -48,8 +48,8 @@ public class Controller {
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId(), oAuth2AuthenticationToken.getPrincipal().getName());
         String tokenValue = client.getAccessToken().getTokenValue();
         log.info("looking for resources");
-        ResponseEntity<Map<String, String>> exchange = restTemplate.getForEntity("http://localhost:8090/resources", String.class);
-        log.info("response: {}", exchange);
-        return exchange.getBody();
+        Map<String,String> resp = restTemplate.getForObject("http://localhost:8090/resources", Map.class);
+        log.info("response: {}", resp);
+        return resp;
     }
 }
