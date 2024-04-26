@@ -3,21 +3,20 @@ spring:
     oauth2:
       client:
         registration:
-          client:
-            provider: spring
-            clientId: client
-            clientSecret: secret
+          keycloak:
+#removed secrets
             scope:
               - openid
               - profile
             authorizationGrantType: authorization_code
-#            redirectUri: ${bff.baseUrl}:${bff.gateway-port}/${bff.gateway-prefix}/login/oauth2/code/client
-            redirectUri: ${bff.baseUrl}:${server.port}/login/oauth2/code/client
+            redirectUri: http://localhost:9090/login/oauth2/code/keycloak
+          google:
+#removed secerets
         provider:
-          spring:
-            issuerUri: http://127.0.0.1:8080
-  main:
-    web-application-type: reactive
+          keycloak:
+            issuerUri: http://localhost:8080/realms/test
+#  main:
+#    web-application-type: reactive
   application:
     name: bffGateway
   cloud:
@@ -29,7 +28,7 @@ spring:
             - Path=/api/**
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-            - TokenRelay=
+            - TokenRelay
             - SaveSession
             - StripPrefix=1
         - id: frontend
@@ -43,8 +42,8 @@ bff:
   gateway-port: 9050
   gateway-prefix: bff
   auth:
-    login-page: ${bff.baseUrl}:${bff.gateway-port}/${bff.gateway-prefix}/oauth2/authorization/client
+#    login-page: ${bff.baseUrl}:${bff.gateway-port}/${bff.gateway-prefix}/oauth2/authorization/client
     postLogoutRedirect: http://localhost:9090/angular/
 #    postLogoutRedirect: ${bff.baseUrl}:${bff.gateway-port}/angular
 #    postLoginRedirect: ${bff.baseUrl}:${bff.gateway-port}/angular
-    postLoginRedirect: http://localhost:9090/angular/
+#    postLoginRedirect: http://localhost:9090/angular/

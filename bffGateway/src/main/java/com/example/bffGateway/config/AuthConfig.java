@@ -27,7 +27,6 @@ import reactor.core.publisher.Mono;
 public class AuthConfig {
 
     private String postLogoutRedirect;
-//    private String loginPage;
     @Autowired
     private ReactiveClientRegistrationRepository clientRegistrationRepository;
 
@@ -48,6 +47,7 @@ public class AuthConfig {
                         .anyExchange().authenticated()
                 )
                 .oauth2Login(c -> c.authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:9090/angular/")))
+//                csrf not working with keycloak logout?
                 .csrf(c -> c.disable())
 //                .csrf(csrf -> csrf
 //                        .csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
@@ -59,28 +59,19 @@ public class AuthConfig {
         return http.build();
     }
 
-//    private ServerCsrfTokenRequestHandler requestHandler() {
-//        XorServerCsrfTokenRequestAttributeHandler delegate = new XorServerCsrfTokenRequestAttributeHandler();
-//        return delegate::handle;
-//    }
+    private ServerCsrfTokenRequestHandler requestHandler() {
+        XorServerCsrfTokenRequestAttributeHandler delegate = new XorServerCsrfTokenRequestAttributeHandler();
+        return delegate::handle;
+    }
 
-//    @Bean
-//    WebFilter csrfCookieWebFilter() {
-//        return (exchange, chain) -> {
-//            Mono<CsrfToken> csrfToken = exchange.getAttributeOrDefault(CsrfToken.class.getName(), Mono.empty());
-//            return csrfToken.doOnSuccess(token -> {
-//                /* Ensures the token is subscribed to. */
-//            }).then(chain.filter(exchange));
-//        };
-//    }
-
-//    private ServerOAuth2AuthorizationRequestResolver authorizationRequestResolver() {
-//        ServerWebExchangeMatcher authorizationRequestMatcher =
-//                new PathPatternParserServerWebExchangeMatcher(
-//                        "http://localhost:9050/bff/oauth2/authorization/client");
-//
-//        return new DefaultServerOAuth2AuthorizationRequestResolver(
-//                this.clientRegistrationRepository, authorizationRequestMatcher);
-//    }
+    @Bean
+    WebFilter csrfCookieWebFilter() {
+        return (exchange, chain) -> {
+            Mono<CsrfToken> csrfToken = exchange.getAttributeOrDefault(CsrfToken.class.getName(), Mono.empty());
+            return csrfToken.doOnSuccess(token -> {
+                /* Ensures the token is subscribed to. */
+            }).then(chain.filter(exchange));
+        };
+    }
 
 }

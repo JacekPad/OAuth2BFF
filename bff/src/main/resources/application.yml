@@ -16,18 +16,17 @@ spring:
     oauth2:
       client:
         registration:
-          client:
-            provider: spring
-            clientId: client
-            clientSecret: secret
+          keycloak:
+            clientId: servlet
+            clientSecret: QLRVlPG6A5fZi4geV97FyI0irgtZBDRL
             scope:
               - openid
               - profile
             authorizationGrantType: authorization_code
-            redirectUri: ${bff.baseUrl}:${bff.gateway-port}/${bff.gateway-prefix}/login/oauth2/code/client
+            redirectUri: ${bff.baseUrl}:${bff.gateway-port}/${bff.gateway-prefix}/login/oauth2/code/keycloak
         provider:
-          spring:
-            issuerUri: http://127.0.0.1:8080
+          keycloak:
+            issuerUri: http://localhost:8080/realms/test
 server:
   port: 9090
 bff:

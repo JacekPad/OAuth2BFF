@@ -5,7 +5,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://127.0.0.1:8080
+          issuer-uri: http://localhost:8080/realms/test
+#          issuer-uri: https://accounts.google.com
   datasource:
     url: jdbc:h2:mem:resource
     driverClassName: org.h2.Driver

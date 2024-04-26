@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
@@ -19,7 +20,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 public class AuthConfig {
 
     private String postLogoutRedirect;
-    private String loginPage;
+//    private String loginPage;
 
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
@@ -38,7 +39,7 @@ public class AuthConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .oauth2Login(oauth -> {
-                    oauth.loginPage(loginPage);
+//                    oauth.loginPage(loginPage);
                     oauth.successHandler(redirectLoginConfig);
                 })
                 .csrf(c -> c.disable())
@@ -48,7 +49,7 @@ public class AuthConfig {
 //                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(new Http403ForbiddenEntryPoint()))
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/public").permitAll();
+                    request.requestMatchers("/").permitAll();
                     request.anyRequest().authenticated();
                 })
                 .logout(logout -> logout.logoutSuccessHandler(logoutSuccessHandler()));

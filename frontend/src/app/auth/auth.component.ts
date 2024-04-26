@@ -19,7 +19,7 @@ export class AuthComponent {
   constructor(private http: HttpClient) {}
 
   public login() {
-    window.location.href = '/oauth2/authorization/client';
+    window.location.href = '/oauth2/authorization/keycloak';
   }
 
   public resource() {
