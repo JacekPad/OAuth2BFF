@@ -11,6 +11,7 @@
         <module name="bff" />
         <module name="resourceServer" />
         <module name="gateway" />
+        <module name="bffGateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,6 +25,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="authorization" options="-parameters" />
       <module name="bff" options="-parameters" />
+      <module name="bffGateway" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="resourceServer" options="-parameters" />
     </option>

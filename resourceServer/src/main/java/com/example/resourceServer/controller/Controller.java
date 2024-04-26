@@ -14,6 +14,7 @@ public class Controller {
 
     @GetMapping("/public")
     public Map<String, String> publicResource() {
+        log.info("accessing public resources");
         Map<String, String> map = new HashMap<>();
         map.put("name","this is public resource");
         return map;
@@ -21,9 +22,8 @@ public class Controller {
 
     @GetMapping("/resources")
     public Map<String, String> resource(Authentication authentication) {
-        if (authentication != null) {
-            log.info("Authentication: {}", authentication.getAuthorities());
-        }
+        log.info("accessing protected resources");
+        log.info("Authentication: {}", authentication.getAuthorities());
         Map<String, String> map = new HashMap<>();
         map.put("name", "this is protected resource");
         return map;

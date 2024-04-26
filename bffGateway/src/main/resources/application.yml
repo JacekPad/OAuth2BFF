@@ -1,0 +1,50 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          client:
+            provider: spring
+            clientId: client
+            clientSecret: secret
+            scope:
+              - openid
+              - profile
+            authorizationGrantType: authorization_code
+#            redirectUri: ${bff.baseUrl}:${bff.gateway-port}/${bff.gateway-prefix}/login/oauth2/code/client
+            redirectUri: ${bff.baseUrl}:${server.port}/login/oauth2/code/client
+        provider:
+          spring:
+            issuerUri: http://127.0.0.1:8080
+  main:
+    web-application-type: reactive
+  application:
+    name: bffGateway
+  cloud:
+    gateway:
+      routes:
+        - id: resource
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/**
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - TokenRelay=
+            - SaveSession
+            - StripPrefix=1
+        - id: frontend
+          uri: http://localhost:4200
+          predicates:
+            - Path=/angular/**
+server:
+  port: 9090
+bff:
+  baseUrl: http://localhost
+  gateway-port: 9050
+  gateway-prefix: bff
+  auth:
+    login-page: ${bff.baseUrl}:${bff.gateway-port}/${bff.gateway-prefix}/oauth2/authorization/client
+    postLogoutRedirect: http://localhost:9090/angular/
+#    postLogoutRedirect: ${bff.baseUrl}:${bff.gateway-port}/angular
+#    postLoginRedirect: ${bff.baseUrl}:${bff.gateway-port}/angular
+    postLoginRedirect: http://localhost:9090/angular/
