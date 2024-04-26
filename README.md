@@ -15,11 +15,14 @@ Springboot application connecting OAuth2 client with angular frontend allowing f
 ### Resource Server (resourceServer)
 Springboot application holding protected resources, allowing only authoried users to access them via JWTs and granted authorities. 
 ### Installation
-#### To run angular application
+#### To run angular application (frontned)
 ```cd .\frontend\``` and ```npm install``` and then <br> ```npm start```
+#### To run angular application (adminUI)
+```cd .\adminUI\``` and ```npm install``` and then <br> ```npm start```
 #### Accessing endpoints
 Run authorization server, then all other backend applications and access the angular frontend with <br>
-``` http://localhost:9050/angular/ ``` <br>. 
+``` http://localhost:9050/angular/ ```. <br> 
+or ```http://localhost:4200``` to access AdminUI frontend application.
 #### Login-in
 To login click ```LOGIN``` button and type ```user:12345``` when asked for credentials. <br> To access protected resources click ```Get resources``` button.
 
