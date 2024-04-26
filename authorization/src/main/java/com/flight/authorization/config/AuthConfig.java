@@ -27,10 +27,14 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -50,7 +54,7 @@ public class AuthConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
-
+        http.cors(Customizer.withDefaults());
         http
                 .exceptionHandling(ex -> ex.defaultAuthenticationEntryPointFor(
                         new LoginUrlAuthenticationEntryPoint("/login"),
@@ -67,7 +71,20 @@ public class AuthConfig {
             request.anyRequest().authenticated();
         })
                 .formLogin(Customizer.withDefaults());
+        http.cors(Customizer.withDefaults());
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        config.addAllowedOrigin("http://localhost:4200");
+        config.setAllowCredentials(true);
+        source.registerCorsConfiguration("/**",config);
+        return source;
     }
 
     // TODO replace with JPA
@@ -84,7 +101,22 @@ public class AuthConfig {
                 .redirectUri("http://localhost:9050/bff/login/oauth2/code/client")
                 .postLogoutRedirectUri("http://localhost:9050/angular")
                 .build();
-        return new InMemoryRegisteredClientRepository(client);
+        RegisteredClient spaPublicCLient = RegisteredClient.withId("SPA")
+                .clientId("SPA")
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .scope(OidcScopes.OPENID)
+                .scope(OidcScopes.PROFILE)
+                .scope("offline_access")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+                .clientSettings(ClientSettings.builder()
+                        .requireAuthorizationConsent(true)
+                        .requireProofKey(true)
+                        .build())
+                .redirectUri("http://localhost:4200")
+                .postLogoutRedirectUri("http://localhost:4200")
+                .build();
+        return new InMemoryRegisteredClientRepository(client, spaPublicCLient);
     }
 
     @Bean
