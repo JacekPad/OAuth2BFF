@@ -1,7 +1,10 @@
 <button (click)="login()"> LOGIN </button>
 
-<button (click)="resource()"> Get resources </button>
+<button (click)="resource()"> Get protected resources </button>
 {{ answer?.name }}
+
+<button (click)="publicResource()"> Get public resources </button>
+{{ publicAnswer?.name }}
 
 <button (click)="getUser()">  get user </button>
 {{ user?.name }}

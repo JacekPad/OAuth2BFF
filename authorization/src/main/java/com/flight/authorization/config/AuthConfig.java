@@ -55,6 +55,7 @@ public class AuthConfig {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
         http.cors(Customizer.withDefaults());
+        http.csrf(s->s.disable());
         http
                 .exceptionHandling(ex -> ex.defaultAuthenticationEntryPointFor(
                         new LoginUrlAuthenticationEntryPoint("/login"),
@@ -72,6 +73,7 @@ public class AuthConfig {
         })
                 .formLogin(Customizer.withDefaults());
         http.cors(Customizer.withDefaults());
+        http.csrf(s->s.disable());
         return http.build();
     }
 
@@ -98,8 +100,8 @@ public class AuthConfig {
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .scope(OidcScopes.PROFILE)
                 .scope(OidcScopes.OPENID)
-                .redirectUri("http://localhost:9050/bff/login/oauth2/code/client")
-                .postLogoutRedirectUri("http://localhost:9050/angular")
+                .redirectUri("http://localhost:9090/login/oauth2/code/client")
+                .postLogoutRedirectUri("http://localhost:9090/angular/")
                 .build();
         RegisteredClient spaPublicCLient = RegisteredClient.withId("SPA")
                 .clientId("SPA")

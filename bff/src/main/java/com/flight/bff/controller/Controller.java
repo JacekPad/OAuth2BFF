@@ -33,7 +33,7 @@ public class Controller {
         return map;
     }
 
-    @GetMapping("/public")
+    @GetMapping("/api/public")
     public String publicTest() {
         return "this is public endpoint";
     }
@@ -43,7 +43,7 @@ public class Controller {
         log.info("post works");
     }
 
-    @GetMapping("/resources")
+    @GetMapping("/api/resources")
     public Map<String, String> resources(HttpServletRequest request, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId(), oAuth2AuthenticationToken.getPrincipal().getName());
         String tokenValue = client.getAccessToken().getTokenValue();

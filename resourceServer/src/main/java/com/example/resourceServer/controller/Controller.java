@@ -2,6 +2,9 @@ package com.example.resourceServer.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +17,7 @@ public class Controller {
 
     @GetMapping("/public")
     public Map<String, String> publicResource() {
+        log.info("accessing public resources");
         Map<String, String> map = new HashMap<>();
         map.put("name","this is public resource");
         return map;
@@ -21,9 +25,8 @@ public class Controller {
 
     @GetMapping("/resources")
     public Map<String, String> resource(Authentication authentication) {
-        if (authentication != null) {
-            log.info("Authentication: {}", authentication.getAuthorities());
-        }
+        log.info("accessing protected resources");
+        log.info("Authentication: {}", authentication.getAuthorities());
         Map<String, String> map = new HashMap<>();
         map.put("name", "this is protected resource");
         return map;

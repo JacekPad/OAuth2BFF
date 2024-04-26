@@ -14,31 +14,37 @@ interface Resp {
 export class AuthComponent {
   user?: Resp = undefined;
   answer?: Resp = undefined;
+  publicAnswer?: Resp = undefined;
 
   constructor(private http: HttpClient) {}
 
   public login() {
-    window.location.href = '/bff/oauth2/authorization/client';
+    window.location.href = '/oauth2/authorization/keycloak';
   }
 
   public resource() {
-    this.http.get<Resp>('/bff/resources').subscribe(ans => {
+    this.http.get<Resp>('/api/resources').subscribe(ans => {
       this.answer = ans;
     })
   }
 
+  public publicResource() {
+    this.http.get<Resp>('/api/public').subscribe(ans => {
+      this.publicAnswer = ans;
+    })
+  }
   public getUser() {
-    this.http.get<Resp>('/bff/info').subscribe(ans => {
+    this.http.get<Resp>('/info').subscribe(ans => {
       this.user = ans;
     })
   }
 
   public logout() {
-    window.location.href = '/bff/logout';
+    window.location.href = '/logout';
   }
 
   public post() {
-    this.http.post('/bff/post', null).subscribe(resp => {
+    this.http.post('/post', null).subscribe(resp => {
       console.log(resp)
     })
   }
