@@ -5,20 +5,27 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @Slf4j
 public class Controller {
 
     @GetMapping("/public")
-    public String publicResource() {
-        return "this is public resource";
+    public Map<String, String> publicResource() {
+        Map<String, String> map = new HashMap<>();
+        map.put("name","this is public resource");
+        return map;
     }
 
     @GetMapping("/resources")
-    public String resource(Authentication authentication) {
+    public Map<String, String> resource(Authentication authentication) {
         if (authentication != null) {
             log.info("Authentication: {}", authentication.getAuthorities());
         }
-        return "this is protected resource";
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "this is protected resource");
+        return map;
     }
 }
