@@ -8,6 +8,8 @@ Authorization server with OAuth 2 Authorization server dependency. Server authen
 Springboot application working as a BFF (backend for frontend) service managing JWTs and sending them to resource servers to access protected resources after redirecting users to authenticate themselves. 
 ### Angular SPA (frontend)
 Frontend application allowing users to login, logout and access protected resources via backend OAuth2client without exposing Access tokens in cookies. 
+### Angular ADMIN UI (adminUI)
+Frontend application working as a public client with PKCE oauth2 authorization, allows to access protected resources with an access_token based on user's authorities.
 ### Springboot gateway (gateway)
 Springboot application connecting OAuth2 client with angular frontend allowing for same origin communication.
 ### Resource Server (resourceServer)
