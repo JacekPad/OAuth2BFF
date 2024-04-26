@@ -48,31 +48,31 @@ public class AuthConfig {
                         .anyExchange().authenticated()
                 )
                 .oauth2Login(c -> c.authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:9090/angular/")))
-//                .csrf(c -> c.disable())
-                .csrf(csrf -> csrf
-                        .csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
-                        .csrfTokenRequestHandler(requestHandler())
-                )
+                .csrf(c -> c.disable())
+//                .csrf(csrf -> csrf
+//                        .csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
+//                        .csrfTokenRequestHandler(requestHandler())
+//                )
                 .logout((logout) -> logout
                         .logoutSuccessHandler(oidcLogoutSuccessHandler())
                 );
         return http.build();
     }
 
-    private ServerCsrfTokenRequestHandler requestHandler() {
-        XorServerCsrfTokenRequestAttributeHandler delegate = new XorServerCsrfTokenRequestAttributeHandler();
-        return delegate::handle;
-    }
+//    private ServerCsrfTokenRequestHandler requestHandler() {
+//        XorServerCsrfTokenRequestAttributeHandler delegate = new XorServerCsrfTokenRequestAttributeHandler();
+//        return delegate::handle;
+//    }
 
-    @Bean
-    WebFilter csrfCookieWebFilter() {
-        return (exchange, chain) -> {
-            Mono<CsrfToken> csrfToken = exchange.getAttributeOrDefault(CsrfToken.class.getName(), Mono.empty());
-            return csrfToken.doOnSuccess(token -> {
-                /* Ensures the token is subscribed to. */
-            }).then(chain.filter(exchange));
-        };
-    }
+//    @Bean
+//    WebFilter csrfCookieWebFilter() {
+//        return (exchange, chain) -> {
+//            Mono<CsrfToken> csrfToken = exchange.getAttributeOrDefault(CsrfToken.class.getName(), Mono.empty());
+//            return csrfToken.doOnSuccess(token -> {
+//                /* Ensures the token is subscribed to. */
+//            }).then(chain.filter(exchange));
+//        };
+//    }
 
 //    private ServerOAuth2AuthorizationRequestResolver authorizationRequestResolver() {
 //        ServerWebExchangeMatcher authorizationRequestMatcher =
