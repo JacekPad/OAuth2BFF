@@ -29,7 +29,7 @@ this will run a keycloak docker container on port 8080 and automatically import 
 #### Accessing endpoints
 Run keycloak authorization server container, then the backend applications (bffGateway and resourceServer) and access the angular frontend with <br>
 ``` http://localhost:9090/angular/ ``` for frontend connected via gateway backend. <br> 
-```http://localhost:4200``` for frontend connected directly to authorzation server via a public client setting.
+```http://localhost:4100``` for frontend connected directly to authorzation server via a public client setting.
 #### Login-in
 To login click ```LOGIN``` button and type ```user:12345``` when asked for credentials. <br> To access protected resources click ```Get resources``` button.
 
