@@ -22,9 +22,9 @@ Springboot application holding protected resources, allowing only authoried user
 #### To run authorization server (keycloak)
 go into the keycloak folder ```cd .\keycloak``` and run command ``` docker compose up``` <br>
 this will run a keycloak docker container on port 8080 and automatically import a realm with all users from the ./keycloak/import folder.
-#### To run angular application (frontned)
+#### To run angular application (frontned) [connected via spring gateway]
 ```cd .\frontend\``` and ```npm install``` and then <br> ```npm start```
-#### To run angular application (adminUI)
+#### To run angular application (adminUI) [public client]
 ```cd .\adminUI\``` and ```npm install``` and then <br> ```npm start```
 #### Accessing endpoints
 Run keycloak authorization server container, then the backend applications (bffGateway and resourceServer) and access the angular frontend with <br>
