@@ -1,5 +1,5 @@
 # Description
-OAuth2 flow connecting Authorization Server with an Angular SPA frontend through a backend for frontend OAuth2 client application. 
+OAuth2 flow connecting Authorization Server with an Angular SPA (frontend) frontend through a backend for frontend OAuth2 client application and a SPA application (adminUI) obtaining tokens directly from authorization server, with session storage for token storage.
 
 ## Services
 ### Authorization Server (authorization) [deprecated in favor of Keycloak provider]
