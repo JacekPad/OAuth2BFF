@@ -27,9 +27,9 @@ this will run a keycloak docker container on port 8080 and automatically import 
 #### To run angular application (adminUI)
 ```cd .\adminUI\``` and ```npm install``` and then <br> ```npm start```
 #### Accessing endpoints
-Run authorization server, then all other backend applications and access the angular frontend with <br>
-``` http://localhost:9050/angular/ ```. <br> 
-or ```http://localhost:4200``` to access AdminUI frontend application.
+Run keycloak authorization server container, then the backend applications (bffGateway and resourceServer) and access the angular frontend with <br>
+``` http://localhost:9090/angular/ ``` for frontend connected via gateway backend. <br> 
+```http://localhost:4200``` for frontend connected directly to authorzation server via a public client setting.
 #### Login-in
 To login click ```LOGIN``` button and type ```user:12345``` when asked for credentials. <br> To access protected resources click ```Get resources``` button.
 
