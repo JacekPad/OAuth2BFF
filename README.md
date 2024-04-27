@@ -4,7 +4,7 @@ OAuth2 flow connecting Authorization Server with an Angular SPA frontend through
 ## Services
 ### Authorization Server (authorization) [deprecated in favor of Keycloak provider]
 Authorization server with OAuth 2 Authorization server dependency. Server authenticates users trying to login via angular application and destributes/validates JWT tokens to allow access to protected resources.
-### Keycloak docker authorization server
+### Keycloak docker authorization server (keycloak)
 Docker container of keycloak with a premade realm and users in .json format
 ### OAuth2 client (bff) [deprecated in favor of less verbose springboot gateway oauth client]
 Springboot application working as a BFF (backend for frontend) service managing JWTs and sending them to resource servers to access protected resources after redirecting users to authenticate themselves. 
