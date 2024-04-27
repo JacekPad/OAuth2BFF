@@ -8,12 +8,12 @@ import { AuthConfig, OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { AuthComponent } from './auth/auth.component';
 
 export const authCodeFlowConfig: AuthConfig = {
-  issuer: 'http://127.0.0.1:8080',
-  tokenEndpoint: 'http://127.0.0.1:8080/oauth2/token',
+  issuer: 'http://localhost:8080/realms/test',
+  tokenEndpoint: 'http://localhost:8080/realms/test/protocol/openid-connect/token',
   redirectUri: window.location.origin,
-  clientId: 'SPA',
+  clientId: 'myweb',
   responseType: 'code',
-  scope: 'openid profile offline_access',
+  scope: 'openid profile',
   requireHttps: false,
   useSilentRefresh: true
 }
