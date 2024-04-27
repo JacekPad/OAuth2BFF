@@ -15,7 +15,7 @@ Frontend application working as a public client with PKCE oauth2 authorization, 
 ### Springboot gateway (gateway) [deprecated in favor of less verbose springboot gateway oauth client]
 Springboot application connecting OAuth2 client with angular frontend allowing for same origin communication.
 ### OAuth2 client as springboot gateway (bffGateway)
-Springboot gateway application registered as an OAuth2 Client relaying obtained access tokens to resource servers. 
+Springboot gateway application registered as an OAuth2 Client relaying obtained access tokens to resource servers via tokenRelay filters. 
 ### Resource Server (resourceServer)
 Springboot application holding protected resources, allowing only authoried users to access them via JWTs and granted authorities. 
 ### Installation
