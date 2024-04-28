@@ -9,6 +9,6 @@
 <button (click)="getUser()">  get user </button>
 {{ user?.name }}
 
-<button (click)="logout()"> logout </button>
-
-<button (click)="post()"> post test </button>
+<form action="/logout" method="post">
+    <button type="submit">FORM STYLE LOGOUT</button>
+</form>

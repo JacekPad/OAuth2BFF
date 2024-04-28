@@ -39,13 +39,4 @@ export class AuthComponent {
     })
   }
 
-  public logout() {
-    window.location.href = '/logout';
-  }
-
-  public post() {
-    this.http.post('/post', null).subscribe(resp => {
-      console.log(resp)
-    })
-  }
 }
