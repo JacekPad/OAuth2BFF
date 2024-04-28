@@ -1,14 +1,18 @@
-<button (click)="login()"> LOGIN </button>
+<button *ngIf="!isUserAuthenticated()" (click)="login()"> LOGIN </button>
+
+<ng-container *ngIf="isUserAuthenticated()">
+    <form action="/logout" method="post">
+        <button type="submit">FORM STYLE LOGOUT</button>
+    </form>
+</ng-container>
+
+<br>
 
 <button (click)="resource()"> Get protected resources </button>
 {{ answer?.name }}
-
+<br>
 <button (click)="publicResource()"> Get public resources </button>
 {{ publicAnswer?.name }}
-
-<button (click)="getUser()">  get user </button>
+<br>
+<button (click)="getUser()"> get user </button>
 {{ user?.name }}
-
-<form action="/logout" method="post">
-    <button type="submit">FORM STYLE LOGOUT</button>
-</form>

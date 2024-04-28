@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface Resp {
   name: string
+  authenticated: boolean;
 }
 
 
@@ -11,12 +13,16 @@ interface Resp {
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
-export class AuthComponent {
-  user?: Resp = undefined;
+export class AuthComponent implements OnInit {
+  user: Resp | undefined;
   answer?: Resp = undefined;
   publicAnswer?: Resp = undefined;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit(): void {
+    this.getUser();
+  }
 
   public login() {
     window.location.href = '/oauth2/authorization/keycloak';
@@ -37,6 +43,10 @@ export class AuthComponent {
     this.http.get<Resp>('/info').subscribe(ans => {
       this.user = ans;
     })
+  }
+
+  public isUserAuthenticated(): boolean {
+    return this.user ? this.user?.authenticated : false;
   }
 
 }

@@ -1,5 +1,6 @@
 package com.example.bffGateway.controller;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -20,20 +21,30 @@ public class Controller {
     }
 
     @GetMapping("/info")
-    public Map<String, String> getInfo(Authentication authentication) {
+    public User getInfo(Authentication authentication) {
         log.info("checking user info");
+        User user = new User();
         Map<String, String> map = new HashMap<>();
         if (authentication == null) {
-            map.put("name", "guest");
+            user.setName("guest");
+            user.setAuthenticated(false);
         } else {
-            map.put("name", authentication.getName());
+            user.setName(authentication.getName());
+            user.setAuthenticated(true);
         }
-        log.info("user: {}",map.get("name"));
-        return map;
+        log.info("user: {}",user.getName());
+        return user;
     }
 
     @PostMapping("/post")
     public void testingPost() {
         log.info("doing post stuff");
     }
+}
+
+
+@Data
+class User {
+    private String name;
+    private boolean authenticated;
 }
