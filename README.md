@@ -2,18 +2,12 @@
 OAuth2 flow connecting Authorization Server with an Angular SPA (frontend) frontend through a backend for frontend OAuth2 client application and a SPA application (adminUI) obtaining tokens directly from authorization server, with session storage for token storage.
 
 ## Services
-### Authorization Server (authorization) [deprecated in favor of Keycloak provider]
-Authorization server with OAuth 2 Authorization server dependency. Server authenticates users trying to login via angular application and destributes/validates JWT tokens to allow access to protected resources.
 ### Keycloak docker authorization server (keycloak)
 Docker container of keycloak with a premade realm and users in .json format
-### OAuth2 client (bff) [deprecated in favor of less verbose springboot gateway oauth client (bffGateway)]
-Springboot application working as a BFF (backend for frontend) service managing JWTs and sending them to resource servers to access protected resources after redirecting users to authenticate themselves. 
 ### Angular SPA (frontend)
 Frontend application allowing users to login, logout and access protected resources via backend OAuth2client without exposing Access tokens in cookies. 
 ### Angular ADMIN UI (adminUI)
 Frontend application working as a public client with PKCE oauth2 authorization, allows to access protected resources with an access_token based on user's authorities.
-### Springboot gateway (gateway) [deprecated in favor of less verbose springboot gateway oauth client (bffGateway)]
-Springboot application connecting OAuth2 client with angular frontend allowing for same origin communication.
 ### OAuth2 client as springboot gateway (bffGateway)
 Springboot gateway application registered as an OAuth2 Client relaying obtained access tokens to resource servers via tokenRelay filters. 
 ### Resource Server (resourceServer)
